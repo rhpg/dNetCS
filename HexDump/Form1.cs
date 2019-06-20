@@ -84,9 +84,17 @@ namespace HexDump
             StringBuilder DispData = new StringBuilder();
             string LineData = "";
             int count = 0;
+            int address = 0;
 
             for (int i = 0; i < FileLength; i++)
             {
+                if (count == 0)
+                {
+                    
+                    DispData.Append(string.Format("{0:X6}", address).ToString() + " ");
+                    address += 0x10;
+                }
+
                 byte b = ByteData[i];
                 string s = string.Format("{0:X2} ", b);
                 LineData += s;
@@ -96,6 +104,7 @@ namespace HexDump
                     DispData.Append(LineData + Environment.NewLine);
                     count = 0;
                     LineData = "";
+
                 }
             }
             textBox1.Text = DispData.ToString();
